@@ -1,0 +1,2 @@
+# vinted-bot
+wsww
