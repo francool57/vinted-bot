@@ -1,97 +1,66 @@
-# Vinted Monitor Bot Commands Documentation
+# Vinted Bot Command Reference
 
-| Command | Parameters | Description | Example | Permission Required |
-|---------|------------|-------------|---------|-------------------|
-| `/start` | `brands` (required)<br>`search` (optional) | Starts a new monitor for specified brands.<br>- Multiple brands separated by commas<br>- Optional search term to filter items<br>- Creates a new channel automatically<br>- Sets up webhook for notifications | `/start nike,adidas supreme` | Manage Channels |
-| `/stop` | `channel` (required) | Stops monitoring for the specified channel.<br>- Cancels the monitoring task<br>- Keeps channel intact<br>- Webhook remains but stops sending | `/stop #nike-finds` | Manage Channels |
-| `/stats` | None | Displays monitoring statistics:<br>- Total items processed<br>- New items found<br>- Active monitors count<br>- Bot uptime<br>- Success rate | `/stats` | None |
-| `/list_monitors` | None | Shows all active monitoring channels:<br>- Lists all channels being monitored<br>- Shows channel mentions for easy navigation | `/list_monitors` | None |
-| `/settings` | `channel` (required)<br>`refresh_rate` (optional)<br>`notification_type` (optional) | Configures monitor settings:<br>- Refresh rate (in seconds, min 2)<br>- Notification type (all/new_only/price_drops)<br>- Channel-specific settings | `/settings #nike-finds 5 new_only` | Manage Channels |
-| `/filter` | `channel` (required)<br>`options` (required) | Sets item filters:<br>- Price range (min-max)<br>- Size filters<br>- Condition filters<br>- Location filters | `/filter #nike-finds price:10-50 size:M,L condition:new` | None |
-| `/alerts` | `channel` (required)<br>`price` (optional)<br>`keywords` (optional) | Sets up custom alerts:<br>- Price drop notifications<br>- Keyword matches<br>- Special item conditions | `/alerts #nike-finds price<30 keywords:vintage,rare` | None |
-| `/status` | `channel` (optional) | Shows monitor status:<br>- Current settings<br>- Items found<br>- Last check time<br>- Error rate | `/status #nike-finds` | None |
-| `/reset` | `channel` (required) | Resets monitor settings:<br>- Clears filters<br>- Resets statistics<br>- Keeps monitor running | `/reset #nike-finds` | Manage Channels |
-| `/help` | `command` (optional) | Shows help information:<br>- List of all commands<br>- Detailed command usage<br>- Examples | `/help start` | None |
+## Monitoring Commands
 
-## Additional Features
+| Command | Description | Usage | Example |
+|---------|-------------|--------|---------|
+| `/start` | Start monitoring for specific brands | `/start <brands> [search]` | `/start nike,adidas sneakers` |
+| `/stop` | Stop monitoring a specific channel | `/stop <channel>` | `/stop #vinted-nike` |
+| `/list_monitors` | Display all active monitoring channels | `/list_monitors` | `/list_monitors` |
+| `/stats` | Show monitoring statistics | `/stats` | `/stats` |
 
-### Filter Options
-- **Price Range**: `price:min-max`
-- **Sizes**: `size:XS,S,M,L,XL`
-- **Conditions**: `condition:new,used,good`
-- **Brands**: `brands:nike,adidas,puma`
-- **Location**: `location:country_code`
+## Filter Commands
 
-### Notification Types
-- **all**: Send notifications for all items
-- **new_only**: Only send notifications for newly listed items
-- **price_drops**: Only send notifications for price drops
+| Command | Description | Usage | Example |
+|---------|-------------|--------|---------|
+| `/filter price_range` | Set minimum and maximum price | `/filter <channel> price_range <min>-<max>` | `/filter #vinted-nike price_range 20-100` |
+| `/filter sizes` | Set acceptable sizes | `/filter <channel> sizes <size1,size2,...>` | `/filter #vinted-nike sizes S,M,L,XL` |
+| `/filter conditions` | Set acceptable item conditions | `/filter <channel> conditions <condition1,condition2,...>` | `/filter #vinted-nike conditions new,like new` |
+| `/filter colors` | Set color filters | `/filter <channel> colors <color1,color2,...>` | `/filter #vinted-nike colors black,white,red` |
+| `/filter exclude_words` | Set words to exclude from titles | `/filter <channel> exclude_words <word1,word2,...>` | `/filter #vinted-nike exclude_words fake,replica,copy` |
+| `/filter include_words` | Set required words in titles | `/filter <channel> include_words <word1,word2,...>` | `/filter #vinted-nike include_words vintage,rare` |
+| `/show_filters` | Display current filters for a channel | `/show_filters <channel>` | `/show_filters #vinted-nike` |
+| `/clear_filters` | Remove all filters from a channel | `/clear_filters <channel>` | `/clear_filters #vinted-nike` |
 
-### Response Times
-- Minimum refresh rate: 2 seconds
-- Maximum refresh rate: 30 seconds
-- Default refresh rate: 5 seconds
+## Filter Options Details
 
-### Channel Naming Convention
-- Automatically created channels follow the format: `vinted-{first_brand}`
-- Example: `/start nike` creates channel `#vinted-nike`
+### Price Range
+- Format: `min-max` (in euros)
+- Example values:
+  - `10-50`: Items between 10€ and 50€
+  - `0-100`: Items up to 100€
+  - `50-`: Items from 50€ and up
 
-### Error Handling
-- Automatically retries on connection errors
-- Reports errors in the command channel
-- Maintains error logs for debugging
+### Sizes
+- Common values: `XS`, `S`, `M`, `L`, `XL`, `XXL`
+- Numeric sizes: `36`, `37`, `38`, `39`, `40`, `41`, `42`, `43`, `44`, `45`
+- Can combine multiple: `S,M,L`
 
-## Examples
+### Conditions
+- Available options:
+  - `new`: New with tags
+  - `like new`: New without tags
+  - `very good`: Very good condition
+  - `good`: Good condition
+  - `satisfactory`: Satisfactory condition
 
-### Basic Monitoring
-```discord
-/start nike
-```
-Creates #vinted-nike channel and starts monitoring Nike items
+### Colors
+- Common colors: `black`, `white`, `red`, `blue`, `green`, `yellow`, `pink`, `purple`, `brown`, `grey`
+- Can combine multiple: `black,white,red`
 
-### Advanced Monitoring
-```discord
-/start nike,adidas vintage
-```
-Creates channel and monitors for vintage Nike and Adidas items
+### Word Filters
+- Exclude words: Words that should NOT appear in the title
+- Include words: Words that MUST appear in the title
+- Case insensitive
+- Comma-separated for multiple words
+- Example:
+  - Exclude: `fake,replica,copy,dupe`
+  - Include: `vintage,rare,limited`
 
-### Complex Filtering
-```discord
-/filter #vinted-nike price:20-100 size:M,L condition:new location:DE
-```
-Sets up filtering for new Nike items in Germany, size M or L, priced between 20-100
-
-### Custom Alerts
-```discord
-/alerts #vinted-nike price<50 keywords:dunk,air,max
-```
-Sets alerts for Nike items under 50 containing keywords "dunk", "air", or "max"
-
-## Best Practices
-
-1. **Channel Management**
-   - Keep monitor count under 10 per server for optimal performance
-   - Use specific search terms to reduce noise
-   - Regular cleanup of inactive monitors
-
-2. **Performance**
-   - Use appropriate refresh rates based on item volume
-   - Set relevant filters to reduce processing load
-   - Monitor error rates and adjust settings accordingly
-
-3. **Notifications**
-   - Use notification types based on needs
-   - Set up alerts for important items only
-   - Use keyword filtering effectively
-
-## Troubleshooting
-
-1. **Common Issues**
-   - Rate limiting: Increase refresh rate
-   - Missing notifications: Check webhook permissions
-   - High error rate: Check network connection
-
-2. **Solutions**
-   - `/reset` to clear problematic settings
-   - `/stop` and `/start` to refresh connection
-   - Check Discord channel permissions
+## Notes
+- All commands are prefixed with `/`
+- Channel names must include the `#` symbol
+- Lists (sizes, colors, etc.) should be comma-separated
+- Filters are channel-specific
+- Filters persist between bot restarts
+- Filters are applied before items are posted to Discord
