@@ -39,11 +39,6 @@ A high-performance Discord bot for monitoring Vinted listings in real-time. Get 
 python -m pip install -r requirements.txt
 ```
 
-### Configuration
-1. Create a `brands.json` file with your brand mappings
-2. Set up your Discord bot token
-3. Configure guild IDs in the commands
-
 ### Running the Bot
 ```bash
 python bot.py
