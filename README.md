@@ -52,8 +52,6 @@ Required packages:
 
 ### Configuration
 1. Create a Discord bot and get your token
-2. Set up webhook URLs for your notification channels
-3. Configure brand mappings in `brands.json`
 
 ## 🛠️ Available Commands
 
@@ -65,6 +63,8 @@ Required packages:
 | `/set_price_range <channel> [min_price] [max_price]` | Set price range filter |
 | `/add_search <channel> <term>` | Add search term filter |
 | `/remove_search <channel> <term>` | Remove search term filter |
+| `/delete_vinted` | Remove all channels starting with vinted |
+| `/start_all` | Start monitoring predefined brands |
 
 ## 📊 Monitoring Features
 
