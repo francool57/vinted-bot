@@ -1,0 +1,5 @@
+aiohttp==3.10.10
+colorama==0.4.4
+discord.py==2.4.0
+Requests==2.32.3
+vinted_scraper==2.3.1
