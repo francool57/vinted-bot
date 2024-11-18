@@ -16,11 +16,10 @@ A sophisticated Discord bot for monitoring Vinted listings in real-time. Get ins
 - 🏥 Automatic health checking system
 
 ### Advanced Filtering
-- 💰 Price range filters (minimum and maximum)
-- 📏 Predefined size filtering
+- 💰 Price range filters 
+- 📏 Size filtering
 - 🏷️ Multiple brand monitoring
 - 🔍 Custom search terms with add/remove capability
-- ⏸️ Pause/Resume functionality per channel
 
 ### Monitoring Controls
 - 🎯 Per-channel monitoring management
@@ -31,8 +30,8 @@ A sophisticated Discord bot for monitoring Vinted listings in real-time. Get ins
 
 ### User Interface
 - 🎨 Rich Discord embeds for item display
-- 🛍️ Direct purchase buttons
-- 📈 Item statistics and favorite counts
+- 🛍️ Direct purchase button
+- 📈 Item statistics
 - 💡 Intuitive slash commands
 - 🚦 Status notifications
 
@@ -43,27 +42,21 @@ A sophisticated Discord bot for monitoring Vinted listings in real-time. Get ins
 python -m pip install -r requirements.txt
 ```
 
-Required packages:
-- discord.py
-- aiohttp
-- requests
-- colorama
-- vinted-scraper
-
 ### Configuration
 1. Create a Discord bot and get your token
+2. Open bot.py and change Bot token
+3. Snipe those items
 
 ## 🛠️ Available Commands
 
 | Command | Description |
 |---------|-------------|
 | `/start <brands> [search]` | Start monitoring specific brands with optional search term |
-| `/pause <channel>` | Pause monitoring for a specific channel |
-| `/resume <channel>` | Resume monitoring for a paused channel |
-| `/set_price_range <channel> [min_price] [max_price]` | Set price range filter |
-| `/add_search <channel> <term>` | Add search term filter |
-| `/remove_search <channel> <term>` | Remove search term filter |
+| `/stop <channel>` | Stop monitoring specific channel |
+| `/restart_monitor <channel>` | Restarts specified channels monitor |
+| `/filter <channel> [max_price] [sizes]` | Set price and/or sizes filter |
 | `/delete_vinted` | Remove all channels starting with vinted |
+| `/stats` | Displays all the monitoring channels and some stats |
 | `/start_all` | Start monitoring predefined brands |
 
 ## 📊 Monitoring Features
@@ -76,15 +69,9 @@ Required packages:
 
 ### Price Filtering
 ```python
-/set_price_range #sneakers 50 200
+/filter #sneakers 200 39,40,41,42
 ```
-Sets price range from 50 to 200 for the specified channel
-
-### Search Terms
-```python
-/add_search #sneakers "Nike Air Max"
-```
-Adds specific search term filter to the monitor
+Sets price range from 0 to 200 and shoe sizes 39, 40, 41 and 42for the specified channel 
 
 ## ⚙️ Technical Features
 
@@ -116,8 +103,8 @@ Monitors multiple brands with a search term filter
 
 ### Monitor Management
 ```python
-/pause #sneakers  # Pause monitoring
-/resume #sneakers # Resume monitoring
+/stop #sneakers  # Pause monitoring
+/restart_monitor #sneakers # restart monitoring
 ```
 
 ## 📝 Best Practices
@@ -153,5 +140,3 @@ Contributions are welcome! Please:
 
 This project is licensed under the MIT License.
 
----
-Made with ❤️ by the Vinted Monitor Bot Team
